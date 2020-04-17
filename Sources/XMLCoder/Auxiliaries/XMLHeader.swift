@@ -16,11 +16,15 @@ public struct XMLHeader {
 
     /// indicates whether a document relies on information from an external source.
     public let standalone: String?
+    
+    /// Defines whether header is suffixed or not by a \n
+    public let appendNewline: Bool
 
-    public init(version: Double? = nil, encoding: String? = nil, standalone: String? = nil) {
+    public init(version: Double? = nil, encoding: String? = nil, standalone: String? = nil, appendNewline: Bool = true) {
         self.version = version
         self.encoding = encoding
         self.standalone = standalone
+        self.appendNewline = appendNewline
     }
 
     func isEmpty() -> Bool {
@@ -46,7 +50,10 @@ public struct XMLHeader {
             string += " standalone=\"\(standalone)\""
         }
 
-        string += "?>\n"
+        string += "?>"
+        if appendNewline {
+            string += "\n"
+        }
 
         return string
     }
